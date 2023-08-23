@@ -6,7 +6,6 @@ int main() {
     std::cin >> word;
     char lower;
     std::string vowels = "AaEeIiOoUuYy";
-    std::string consonants = "bBCcDdfFgGhHjJkKlLmMnNpPqQrRsStTvVWwxXzZ";
     for (auto &el : word) {
         if (vowels.find(el) != std::string::npos) {
             continue;
