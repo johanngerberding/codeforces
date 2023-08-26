@@ -4,37 +4,25 @@ int main() {
     int t, n;
     long long k, h; 
     int idx;
-    int curr = 1;    
     std::cin >> t;
 
     while (t--) {
         std::cin >> n >> k; 
-        std::vector<long long> health(n);
-        std::vector<int> deaths(n); 
+        std::vector<int> health(n);
+        std::vector<int> idxs(n); 
+        
         for (int i = 0; i < n; i++) {
             std::cin >> h;
-            health[i] = h;
-        }
-        // find max elem  
-        auto it = std::max_element(health.begin(), health.end());
-        while (*it > 0) {
-            if (it != health.end()) {
-                idx = std::distance(health.begin(), it);
-                // std::cout << "Index of max value: " << idx << "\n";
-                health[idx] -= k; 
-                if (health[idx] <= 0) {
-                    deaths[idx] = curr;
-                    curr++;
-                }
+            if (h % k == 0) {
+                health[i] = k;
             } else {
-                std::cout << "Could not find maximum.\n";
+                health[i] = h % k;
             }
-            it = std::max_element(health.begin(), health.end());
-        }        
-        for (auto &el : deaths) {
-            std::cout << el << " ";
-        }         
-        std::cout << "\n";
-        curr = 1;
+        }
+        std::iota(idxs.begin(), idxs.end(), 0); 
+        std::stable_sort(idxs.begin(), idxs.end(), [&health](int i, int j) {return health[i] > health[j];}); 
+        for (auto &el : idxs) {
+            std::cout << el + 1 << " ";
+        }  
     }
 }
